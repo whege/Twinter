@@ -8,9 +8,7 @@ from typing import List, Optional
 
 from dotenv import load_dotenv
 from tqdm import tqdm
-from tweepy import Client, Paginator
-
-from twinter.common.klasses import NeatTweet
+from tweepy import Client, Paginator, Tweet
 
 
 class TwitterClient:
@@ -32,7 +30,7 @@ class TwitterClient:
             consumer_secret=environ['API_KEY_SECRET']
         )
 
-    def get_tweets(self, screen_name: str, /) -> List[NeatTweet]:
+    def get_tweets(self, screen_name: str, /) -> List[Tweet]:
         """
         Get the timeline for the passed screen_name
         :param screen_name: Screen name of the Twitter user for which to fetch tweets
@@ -44,14 +42,14 @@ class TwitterClient:
         else:
             user = user.data.id
 
-        tweets: List[NeatTweet] = []
+        tweets: List[Tweet] = []
         _kwargs = {'id': user, "exclude": ['retweets'], "max_results": 100, "limit": 3300}
 
         for res in tqdm(
                 Paginator(self._client.get_users_tweets, **_kwargs),
                 desc="Fetching", unit=" pages of Tweets", colour="blue"
         ):
-            tweets.extend(list(map(NeatTweet, res.data)))
+            tweets.extend(res.data)
 
         return tweets
 
