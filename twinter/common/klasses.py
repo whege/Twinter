@@ -97,6 +97,9 @@ class NeatTweet(Tweet):
         """
         return word.encode().decode("unicode_escape")
 
+    def __contains__(self, item):
+        return item in self._neat_text
+
     def __len__(self):
         """
         Returns the length of the Tweet's cleaned text
