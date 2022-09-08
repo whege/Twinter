@@ -10,6 +10,7 @@ from tweepy import Tweet
 
 HANDLE = re.compile(r'@[a-zA-Z0-9_]+(?=\s)')
 PUNCT = re.compile(r'[.!,?]')
+LINK = re.compile(r'https?://t\.co/[a-zA-Z0-9]{10}')
 NEWLINE = re.compile(r'\n+')
 UNICODE = re.compile(r'\\U[a-z0-9]+')
 
@@ -62,6 +63,7 @@ class NeatTweet(Tweet):
         clean = HANDLE.sub('', text)  # Remove Twitter handles
         clean = re.sub(r'\s+', ' ', clean)  # Remove extra spaces
         clean = NEWLINE.sub(' ', clean)  # Remove newline characters
+        clean = LINK.sub('', clean)  # Remove links
 
         # remove punctuation so that we can check if punctuation is all that remains
         punctless = PUNCT.sub('', clean)
