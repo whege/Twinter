@@ -6,7 +6,6 @@ __doc__ = """Enter some text here, bitch"""
 from sys import argv
 
 from twinter.client import TwitterClient
-from twinter.features import make_features
 from twinter.common.klasses import NeatTweet
 
 
@@ -21,7 +20,6 @@ def twinter_main(username: str):
 
     neat_tweets = list(map(NeatTweet, tweets))
     neat_tweets = [t for t in neat_tweets if t.not_empty]
-    make_features(neat_tweets)
 
 
 if __name__ == '__main__':
