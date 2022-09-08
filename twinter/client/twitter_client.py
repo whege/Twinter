@@ -43,13 +43,14 @@ class TwitterClient:
             user = user.data.id
 
         tweets: List[Tweet] = []
-        _kwargs = {'id': user, "exclude": ['retweets'], "max_results": 100, "limit": 3300}
+        _kwargs = {'id': user, "exclude": ['retweets'], "max_results": 100, "limit": 4000}
 
         for res in tqdm(
                 Paginator(self._client.get_users_tweets, **_kwargs),
                 desc="Fetching", unit=" pages of Tweets", colour="blue"
         ):
-            tweets.extend(res.data)
+            if res.data:
+                tweets.extend(res.data)
 
         return tweets
 
