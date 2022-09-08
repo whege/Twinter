@@ -88,15 +88,6 @@ class NeatTweet(Tweet):
         else:
             return word
 
-    @staticmethod
-    def _unnormalize_unicode(word: str):
-        """
-        Convert Unicode Character code back to the character
-        :param word:
-        :return:
-        """
-        return word.encode().decode("unicode_escape")
-
     def __contains__(self, item):
         return item in self._neat_text
 
