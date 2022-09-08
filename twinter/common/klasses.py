@@ -53,6 +53,10 @@ class NeatTweet(Tweet):
         """
         return len(self) != 0
 
+    @property
+    def tweet(self):
+        return super(NeatTweet, self).__str__()
+
     def _clean_tweet(self):
         """
         Clean the tweet of handles, punctuation, emoji, etc.
@@ -99,3 +103,6 @@ class NeatTweet(Tweet):
         :return:
         """
         return len(self._neat_text)
+
+    def __str__(self):
+        return self._neat_text
